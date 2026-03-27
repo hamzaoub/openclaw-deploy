@@ -1,10 +1,11 @@
 services:
   openclaw:
     image: ghcr.io/openclaw/openclaw:latest
+    command: ["openclaw", "gateway", "--port", "18789", "--bind", "lan"]
     ports:
       - "18789:18789"
     volumes:
-      - openclaw_data:/root/.openclaw
+      - openclaw_data:/home/node/.openclaw
     restart: unless-stopped
 
 volumes:
