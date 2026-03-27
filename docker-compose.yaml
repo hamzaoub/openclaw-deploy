@@ -1,13 +1,16 @@
 services:
   openclaw:
     image: ghcr.io/openclaw/openclaw:latest
+    user: root
     command: >
       sh -lc '
       mkdir -p /home/node/.openclaw &&
+      chown -R node:node /home/node/.openclaw &&
       if [ ! -f /home/node/.openclaw/openclaw.json ]; then
         printf "%s\n" "{ \"gateway\": { \"mode\": \"local\", \"bind\": \"lan\", \"port\": 18789 } }" > /home/node/.openclaw/openclaw.json;
+        chown node:node /home/node/.openclaw/openclaw.json;
       fi &&
-      openclaw gateway --bind lan --port 18789
+      su node -s /bin/sh -c "openclaw gateway --bind lan --port 18789"
       '
     ports:
       - "18789:18789"
