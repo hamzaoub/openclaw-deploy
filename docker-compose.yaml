@@ -1,0 +1,11 @@
+services:
+  openclaw:
+    image: ghcr.io/openclaw/openclaw:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - openclaw_data:/root/.openclaw
+    restart: unless-stopped
+
+volumes:
+  openclaw_data:
